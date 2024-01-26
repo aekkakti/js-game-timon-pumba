@@ -57,6 +57,8 @@ function generatedCordes() {
 }
 
 
+
+
 // движение гл. персонажа
 window.onkeydown = function move(ev) {
     if (ev.key === 'ArrowLeft' && !pause && startFlag) {

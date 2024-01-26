@@ -18,11 +18,9 @@ const activeInfo = document.querySelector('.activeInfo');
 let startFlag = false;
 let pause = false;
 
-let actualHp = 4;
+let actualHp = 100;
 let seconds = 0;
 let minutes = 0;
-let leftCount = 0;
-
 
 // вывод имени игрока и активация поля ввода
 form.addEventListener('submit', function (ev) {
@@ -37,6 +35,7 @@ form.addEventListener('submit', function (ev) {
     this.disabled = true;
     startFlag = true;
     generatedCordes();
+    gienaInt = setInterval(moveGiena, 1000);
     moveGiena();
 }, false)
 
@@ -53,7 +52,7 @@ playAgainButton.addEventListener("click", function (ev) {
     endScreen.classList.add('hide');
     formPlayer.classList.remove('nothide');
     formPlayer.classList.add('hide');
-    actualHp = 4;
+    actualHp = 100;
     seconds = 0;
     minutes = 0;
     timeInt = setInterval(updateTime, 1000);
@@ -68,28 +67,6 @@ playAgainButton.addEventListener("click", function (ev) {
     Timon.style.left = 0 + 'px';
 })
 
-// движение гиены
-function moveGiena() {
-        setInterval(() => {
-            Giena.style.left = parseInt(Giena.style.left) - 10 + 'px'
-            leftCount = leftCount - 10;
-        }, 1000)
-}
-
-// обновление хп
-function updateHp() {
-    if (!pause){
-        actualHp--;
-        if (actualHp <= 0) {
-            clearInterval(hpInt);
-            clearInterval(timeInt);
-            startFlag = false
-            endScreen.classList.add('nothide');
-        }
-        hp.textContent = `Кол-во здоровья: ${actualHp}`;
-    }
-}
-
 // таймер
 function updateTime() {
     if (!pause) {
@@ -99,6 +76,32 @@ function updateTime() {
             seconds = 0;
         }
         timer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+}
+
+// обновление хп
+function updateHp() {
+    if (!pause){
+        actualHp--;
+        if (actualHp <= 0) {
+            clearInterval(hpInt);
+            clearInterval(timeInt);
+            clearInterval(gienaInterval);
+            startFlag = false
+            endScreen.classList.add('nothide');
+        }
+        hp.textContent = `Кол-во здоровья: ${actualHp}`;
+    }
+}
+
+// движение гиены
+function moveGiena() {
+    if (!pause && actualHp > 0) {
+        leftGiena = Giena.style.left = parseInt(Giena.style.left) - 10 + 'px'
+        gienaInterval = setInterval(leftGiena, 1000)
+    }
+    else {
+        clearInterval(gienaInterval);
     }
 }
 
