@@ -1,0 +1,211 @@
+@import 'fonts.css';
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Montserrat, sans-serif;
+    background-image: url("../Media/Фоны/pzapwisrt5dy.png");
+}
+
+.container {
+    max-width: 1440px;
+    max-height: 900px ;
+    margin: 0 auto;
+}
+
+.d-f {
+    display: flex;
+}
+
+.a-i-c {
+    align-items: center;
+}
+
+.t-a-c {
+    text-align: center;
+}
+
+.j-c-c {
+    justify-content: center;
+}
+
+.j-c-s-b {
+    justify-content: space-between;
+}
+
+.f-d-c {
+    flex-direction: column;
+}
+
+.f-d-r {
+    flex-direction: row;
+}
+
+.p-r {
+    position: relative;
+}
+
+.p-a {
+    position: absolute;
+}
+
+.b-n {
+    border: none;
+}
+
+.p-s {
+    position: static;
+}
+
+.p-f {
+    position: fixed;
+}
+
+.b-c-r {
+    background-color: #dc7575;
+    opacity: 0.9;
+}
+
+.fs-24pt {
+    font-size: 24pt;
+}
+
+.fs-16pt {
+    font-size: 16pt;
+}
+
+.h-w-28-260 {
+    height: 28px;
+    width: 260px;
+}
+
+.h-w-200-50px {
+    height: 200px;
+    width: 50px;
+}
+
+.h-w-200-200 {
+    height: 200px;
+    width: 200px;
+}
+
+.b-r-5 {
+    border-radius: 5%;
+    border: none;
+}
+
+.h-w-800-500 {
+    height: 800px;
+    width: 500px;
+}
+
+.h-w-700-500 {
+    height: 700px;
+    width: 500px;
+}
+
+.mt-55px {
+    margin-top: 55px;
+}
+
+#readyPlay:hover {
+    color: white;
+    background-color: blue;
+    transition: 1s;
+    cursor: pointer;
+}
+
+.activeInfo {
+    background-color: #dc7575;
+    height: 100px;
+}
+
+.pl-120px {
+    padding-left: 120px;
+}
+
+.pl-150px {
+    padding-left: 150px;
+}
+
+.pl-170px {
+    padding-left: 170px;
+}
+
+.pl-10px {
+    padding-left: 10px;
+}
+
+.pt-40px {
+    padding-top: 40px;
+}
+
+.pt-350px {
+    padding-top: 350px;
+}
+
+.pb-40px {
+    padding-bottom: 40px;
+}
+
+.t-d-n {
+    text-decoration: none;
+    color: black;
+}
+
+.h-w-75px {
+    height: 75px;
+    width: 75px;
+}
+
+.h-w-70-115px {
+    height: 70px;
+    width: 115px;
+}
+
+.h-w-100px {
+    height: 100px;
+    width: 100px;
+}
+
+.hide {
+    display: none;
+}
+
+.nothide {
+    display: block;
+}
+
+.giena, .box, .caterpillar, #timon {
+    bottom: 0;
+}
+
+.video {
+    padding-left: 100px;
+    padding-top: 90px;
+}
+
+.pauseMenu {
+    font-size: 26pt;
+    color: white;
+    background-color: black;
+    opacity: .9;
+    width: 100%;
+    min-height: 89%;
+}
+
+.mirror {
+    transform: scale(-1, 1);
+}
+
+#playAgainButton:hover {
+    color: white;
+    background-color: blue;
+    transition: 1s;
+    cursor: pointer;
+}
