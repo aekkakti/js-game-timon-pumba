@@ -16,6 +16,7 @@ const videoIntro = document.querySelector("#videoIntro")
 const activeInfo = document.querySelector('.activeInfo');
 
 let startFlag = false;
+let leftFlag = false
 let pause = false;
 
 let actualHp = 100;
@@ -36,7 +37,6 @@ form.addEventListener('submit', function (ev) {
     startFlag = true;
     generatedCordes();
     gienaInt = setInterval(moveGiena, 1000);
-    moveGiena();
 }, false)
 
 // отключение кнопки "начать"
@@ -86,7 +86,7 @@ function updateHp() {
         if (actualHp <= 0) {
             clearInterval(hpInt);
             clearInterval(timeInt);
-            clearInterval(gienaInterval);
+            clearInterval(moveGiena);
             startFlag = false
             endScreen.classList.add('nothide');
         }
@@ -97,11 +97,17 @@ function updateHp() {
 // движение гиены
 function moveGiena() {
     if (!pause && actualHp > 0) {
-        leftGiena = Giena.style.left = parseInt(Giena.style.left) - 10 + 'px'
-        gienaInterval = setInterval(leftGiena, 1000)
-    }
-    else {
-        clearInterval(gienaInterval);
+        if (parseInt(Giena.style.left) > 0 && leftFlag) {
+            Giena.style.left = parseInt(Giena.style.left) - 200 + 'px';
+            if (parseInt(Giena.style.left) < 0) leftFlag = false
+            console.log('1');
+        }
+        else if (!leftFlag && parseInt(Giena.style.left) <= 1650) {
+            Giena.classList.add('mirror');
+            if (parseInt(Giena.style.left) > 1650)
+            Giena.style.left = parseInt(Giena.style.left) + 200 + 'px';
+            console.log('2');
+        }
     }
 }
 

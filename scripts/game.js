@@ -51,12 +51,9 @@ function generatedCordes() {
         Caterpillar2.style.left = caterpillarX2 + 'px';
         Caterpillar2.style.bottom = caterpillarY2 + 'px';
     }
-
     randomCord();
     spawnCaterpillar(caterpillarX1, caterpillarY1, caterpillarX2, caterpillarY2);
 }
-
-
 
 
 // движение гл. персонажа
