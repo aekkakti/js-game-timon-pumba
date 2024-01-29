@@ -7,6 +7,7 @@ const video = document.querySelector(".video");
 const formPlayer = document.querySelector(".formPlayer");
 const timer = document.getElementById('timer');
 const hp = document.querySelector('.hp');
+const Result = document.querySelector('.Result');
 const pauseMenu = document.querySelector('.pauseMenu');
 const body = document.querySelector('.body');
 const game = document.querySelector('.game');
@@ -16,12 +17,15 @@ const videoIntro = document.querySelector("#videoIntro")
 const activeInfo = document.querySelector('.activeInfo');
 
 let startFlag = false;
-let leftFlag = false
+let leftFlag = true;
+let videoFlag = false;
 let pause = false;
 
+let stepsGiena = 0;
 let actualHp = 100;
 let seconds = 0;
 let minutes = 0;
+
 
 // вывод имени игрока и активация поля ввода
 form.addEventListener('submit', function (ev) {
@@ -36,7 +40,7 @@ form.addEventListener('submit', function (ev) {
     this.disabled = true;
     startFlag = true;
     generatedCordes();
-    gienaInt = setInterval(moveGiena, 1000);
+    setInterval(moveGiena, 1000);
 }, false)
 
 // отключение кнопки "начать"
@@ -52,6 +56,7 @@ playAgainButton.addEventListener("click", function (ev) {
     endScreen.classList.add('hide');
     formPlayer.classList.remove('nothide');
     formPlayer.classList.add('hide');
+    userResult = 0;
     actualHp = 100;
     seconds = 0;
     minutes = 0;
@@ -67,49 +72,6 @@ playAgainButton.addEventListener("click", function (ev) {
     Timon.style.left = 0 + 'px';
 })
 
-// таймер
-function updateTime() {
-    if (!pause) {
-        seconds++;
-        if (seconds === 60) {
-            minutes++;
-            seconds = 0;
-        }
-        timer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    }
-}
-
-// обновление хп
-function updateHp() {
-    if (!pause){
-        actualHp--;
-        if (actualHp <= 0) {
-            clearInterval(hpInt);
-            clearInterval(timeInt);
-            clearInterval(moveGiena);
-            startFlag = false
-            endScreen.classList.add('nothide');
-        }
-        hp.textContent = `Кол-во здоровья: ${actualHp}`;
-    }
-}
-
-// движение гиены
-function moveGiena() {
-    if (!pause && actualHp > 0) {
-        if (parseInt(Giena.style.left) > 0 && leftFlag) {
-            Giena.style.left = parseInt(Giena.style.left) - 200 + 'px';
-            if (parseInt(Giena.style.left) < 0) leftFlag = false
-            console.log('1');
-        }
-        else if (!leftFlag && parseInt(Giena.style.left) <= 1650) {
-            Giena.classList.add('mirror');
-            if (parseInt(Giena.style.left) > 1650)
-            Giena.style.left = parseInt(Giena.style.left) + 200 + 'px';
-            console.log('2');
-        }
-    }
-}
 
 // пауза и пропуск видеоролика
 window.onkeyup = function (ev) {
@@ -129,21 +91,25 @@ window.onkeyup = function (ev) {
     }
 
     if (ev.code === 'Space' && startFlag) {
+        videoFlag = true;
         video.classList.remove('nothide');
         video.classList.add('hide');
         start();
     }
 
-    if (ev.key === 'Escape' && startFlag && endScreen.classList.contains('hide')) {
+    if (ev.key === 'Escape' && startFlag && endScreen.classList.contains('hide') && videoFlag) {
         pause = !pause;
         pauseMenu.classList.toggle('nothide');
     }
 };
 
 // скрытие блоков после окончания видео
-document.querySelector("video").addEventListener('ended', function () {
+video.addEventListener('ended', function () {
     video.classList.remove('nothide');
     video.classList.add('hide');
     activeInfo.classList.add('nothide');
     game.classList.add('nothide');
 });
+
+
+
