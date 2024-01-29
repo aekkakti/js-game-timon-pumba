@@ -15,6 +15,7 @@ const endScreen = document.querySelector('.endScreen')
 const videoIntro = document.querySelector("#videoIntro")
 const activeInfo = document.querySelector('.activeInfo');
 const Result = document.querySelector('.Result');
+const eatenCaterpillars = document.querySelector('.eatenCaterpillars')
 
 let startFlag = false;
 let leftFlag = true
@@ -37,8 +38,9 @@ form.addEventListener('submit', function (ev) {
     this.disabled = true;
     startFlag = true;
     generatedCordes();
-    gienaInt = setInterval(moveGiena, 1000);
+    gienaInt = setInterval(moveGiena, 1500);
 }, false)
+
 
 // отключение кнопки "начать"
 putNickname.addEventListener('input', function () {
@@ -56,8 +58,14 @@ playAgainButton.addEventListener("click", function (ev) {
     actualHp = 100;
     seconds = 0;
     minutes = 0;
+    numberCaterpillars = 0;
+    Caterpillar1.classList.remove('hide');
+    Caterpillar1.classList.add('nothide');
+    Caterpillar2.classList.remove('hide');
+    Caterpillar2.classList.add('nothide');
     timeInt = setInterval(updateTime, 1000);
     hpInt = setInterval(updateHp, 1000);
+    clearInterval(Collision);
     activeInfo.classList.remove('hide');
     activeInfo.classList.add('nothide');
     game.classList.remove('hide');
@@ -79,6 +87,7 @@ window.onkeyup = function (ev) {
             timer.update = ms => timer.innerHTML = new Date(ms).toISOString().split(/T|\./)[1];
             timeInt = setInterval(updateTime, 1000);
             hpInt = setInterval(updateHp, 1000);
+            setInterval(Collision,1000);
         }
         else {
             game.classList.add('hide');

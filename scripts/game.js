@@ -1,12 +1,13 @@
 // координаты персонажа
 let timonX = 0;
 
-// координаты, количество, ограничение спавна для гиен
+// координаты, количество, ограничение спавна для гиен, кол-во шагов
 let gienaX = 0;
 let gienaCount = 0;
 let minX = 300;
 let maxX = 1700;
 let stepsGiena = 0;
+
 
 // координаты и кол-во гусениц
 let caterpillarX1 = 0;
@@ -21,10 +22,11 @@ let boxCount = 0;
 // прыжок гл. персонажа (переменные)
 let left = 0;
 let isJumping = false;
+let timerTouch = false;
 
 // результат пользователя
 let userResult = 0
-let eatenCaterpillars = 1
+let numberCaterpillars = 0
 
 // объекты игры
 const Timon = document.querySelector("#timon");
@@ -85,10 +87,11 @@ function updateHp() {
             clearInterval(moveGiena);
             startFlag = false
             endScreen.classList.add('nothide');
-            userResult = 1000 - (minutes * 60 + seconds) + eatenCaterpillars * 10;
+            userResult = 1000 - (minutes * 60 + seconds) + numberCaterpillars * 10;
         }
         hp.textContent = `Кол-во здоровья: ${actualHp}`;
         Result.textContent = `Ваш результат: ${userResult}`;
+        eatenCaterpillars.textContent = `Съединных гусениц: ${numberCaterpillars}`
     }
 }
 
@@ -188,5 +191,37 @@ window.onkeydown = function move(ev) {
         }
         jump();
     }
+}
+
+// Реализация коллизии персонажей
+function Collision() {
+    let gienaPosition = Giena.getBoundingClientRect()
+    let timonPosition = Timon.getBoundingClientRect()
+    let caterpillar1Position = Caterpillar1.getBoundingClientRect()
+    let caterpillar2Position = Caterpillar2.getBoundingClientRect()
+    if ((timonPosition.top <= caterpillar1Position.bottom || timonPosition.bottom <= caterpillar1Position.top) &&
+        (timonPosition.left >= caterpillar1Position.right || timonPosition.right >= caterpillar1Position.left))
+    {
+        numberCaterpillars += 1
+        actualHp += 6
+        Caterpillar1.classList.remove('nothide');
+        Caterpillar1.classList.add('hide');
+        return false;
+    }
+    if ((timonPosition.top <= caterpillar2Position.bottom || timonPosition.bottom <= caterpillar2Position.top) &&
+        (timonPosition.left >= caterpillar2Position.right || timonPosition.right >= caterpillar2Position.left)) {
+        actualHp += 6
+        numberCaterpillars += 1
+        Caterpillar2.classList.remove('nothide');
+        Caterpillar2.classList.add('hide');
+        return false;
+    }
+    if ((timonPosition.top <= gienaPosition.bottom && timonPosition.bottom <= gienaPosition.top &&
+        timonPosition.left >= gienaPosition.right && timonPosition.right >= gienaPosition.left)) {
+        actualHp -= 30;
+        return false;
+    }
+
+    return true;
 }
 
