@@ -6,6 +6,7 @@ let gienaX = 0;
 let gienaCount = 0;
 let minX = 300;
 let maxX = 1700;
+let stepsGiena = 0;
 
 // координаты и кол-во гусениц
 let caterpillarX1 = 0;
@@ -44,10 +45,6 @@ function generatedCordes() {
     function randomCord() {
         // спавн препятствий
             boxX = generateCord(minX, maxX);
-            document.body.appendChild(Box);
-            for (let i = 0; i < 10; i++) {
-                Box[i].style.left =  boxX + 'px';
-            }
             // спавн гиен по оси X
             gienaX = generateCord(minX, maxX);
             Giena.style.left = gienaX + 'px';
@@ -185,7 +182,6 @@ window.onkeydown = function move(ev) {
         if (parseInt(Timon.style.bottom) >= 0 && parseInt(Timon.style.bottom) < 200) {
             Timon.classList.add('nothide');
             Timon.classList.remove('hide')
-
         }
         if (parseInt(Timon.style.bottom) < 0) {
             Timon.classList.toggle('nothide');

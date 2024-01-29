@@ -14,9 +14,10 @@ const playAgainButton = document.getElementById('playAgainButton');
 const endScreen = document.querySelector('.endScreen')
 const videoIntro = document.querySelector("#videoIntro")
 const activeInfo = document.querySelector('.activeInfo');
+const Result = document.querySelector('.Result');
 
 let startFlag = false;
-let leftFlag = false
+let leftFlag = true
 let pause = false;
 
 let actualHp = 100;
@@ -66,50 +67,6 @@ playAgainButton.addEventListener("click", function (ev) {
     Timon.style.bottom = 0 + 'px';
     Timon.style.left = 0 + 'px';
 })
-
-// таймер
-function updateTime() {
-    if (!pause) {
-        seconds++;
-        if (seconds === 60) {
-            minutes++;
-            seconds = 0;
-        }
-        timer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    }
-}
-
-// обновление хп
-function updateHp() {
-    if (!pause){
-        actualHp--;
-        if (actualHp <= 0) {
-            clearInterval(hpInt);
-            clearInterval(timeInt);
-            clearInterval(moveGiena);
-            startFlag = false
-            endScreen.classList.add('nothide');
-        }
-        hp.textContent = `Кол-во здоровья: ${actualHp}`;
-    }
-}
-
-// движение гиены
-function moveGiena() {
-    if (!pause && actualHp > 0) {
-        if (parseInt(Giena.style.left) > 0 && leftFlag) {
-            Giena.style.left = parseInt(Giena.style.left) - 200 + 'px';
-            if (parseInt(Giena.style.left) < 0) leftFlag = false
-            console.log('1');
-        }
-        else if (!leftFlag && parseInt(Giena.style.left) <= 1650) {
-            Giena.classList.add('mirror');
-            if (parseInt(Giena.style.left) > 1650)
-            Giena.style.left = parseInt(Giena.style.left) + 200 + 'px';
-            console.log('2');
-        }
-    }
-}
 
 // пауза и пропуск видеоролика
 window.onkeyup = function (ev) {
