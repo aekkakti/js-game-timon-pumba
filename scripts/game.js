@@ -21,7 +21,6 @@ let boxCount = 0;
 // прыжок гл. персонажа (переменные)
 let left = 0;
 let isJumping = false;
-let timerTouch = false;
 
 // результат пользователя
 let userResult = 0
@@ -30,9 +29,9 @@ let numberCaterpillars = 0
 // объекты игры
 const Timon = document.querySelector("#timon");
 const Giena = document.querySelector(".giena");
-const Box = document.querySelector(".box");
 const Caterpillar1 = document.querySelector("#caterpillar1")
 const Caterpillar2 = document.querySelector("#caterpillar2")
+const Box = document.querySelector(".box");
 
 // Генерация координат
 function generatedCordes() {
@@ -86,7 +85,12 @@ function updateHp() {
             clearInterval(moveGiena);
             startFlag = false
             endScreen.classList.add('nothide');
-            userResult = 1000 - (minutes * 60 + seconds) + numberCaterpillars * 10;
+            if (actualHp > 0){
+                userResult = 1000 - (minutes * 60 + seconds) + numberCaterpillars * 10;
+            }
+            else {
+                userResult = 0;
+            }
         }
         hp.textContent = `Кол-во здоровья: ${actualHp}`;
         Result.textContent = `Ваш результат: ${userResult}`;
@@ -197,7 +201,7 @@ function Collision() {
     let timonPosition = Timon.getBoundingClientRect()
     let caterpillar1Position = Caterpillar1.getBoundingClientRect()
     let caterpillar2Position = Caterpillar2.getBoundingClientRect()
-    let GienaPosition = Giena.getBoundingClientRect()
+    let gienaPosition = Giena.getBoundingClientRect()
 
     if (timonPosition.x + timonPosition.width >= caterpillar1Position.x &&
         caterpillar1Position.x + caterpillar1Position.width >= timonPosition.x &&
@@ -221,13 +225,12 @@ function Collision() {
         return false;
     }
 
-    if (timonPosition.x + timonPosition.width >= GienaPosition.x &&
-        GienaPosition.x + GienaPosition.width >= timonPosition.x &&
-        timonPosition.y + timonPosition.height >= GienaPosition.y &&
-        GienaPosition.y + GienaPosition.height >= timonPosition.y) {
+    if (timonPosition.x + timonPosition.width >= gienaPosition.x &&
+        gienaPosition.x + gienaPosition.width >= timonPosition.x &&
+        timonPosition.y + timonPosition.height >= gienaPosition.y &&
+        gienaPosition.y + gienaPosition.height >= timonPosition.y) {
         actualHp -= 30;
     }
-
     return true;
 }
 

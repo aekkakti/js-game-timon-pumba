@@ -18,7 +18,7 @@ const Result = document.querySelector('.Result');
 const eatenCaterpillars = document.querySelector('.eatenCaterpillars')
 
 let startFlag = false;
-let leftFlag = true
+let leftFlag = true;
 let pause = false;
 
 let actualHp = 100;
