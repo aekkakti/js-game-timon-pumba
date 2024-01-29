@@ -107,7 +107,7 @@ window.onkeyup = function (ev) {
 };
 
 // скрытие блоков после окончания видео
-document.querySelector("video").addEventListener('ended', function () {
+video.addEventListener('ended', function () {
     video.classList.remove('nothide');
     video.classList.add('hide');
     activeInfo.classList.add('nothide');

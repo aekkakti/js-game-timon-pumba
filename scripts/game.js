@@ -8,7 +8,6 @@ let minX = 300;
 let maxX = 1700;
 let stepsGiena = 0;
 
-
 // координаты и кол-во гусениц
 let caterpillarX1 = 0;
 let caterpillarY1 = 198;
@@ -195,31 +194,38 @@ window.onkeydown = function move(ev) {
 
 // Реализация коллизии персонажей
 function Collision() {
-    let gienaPosition = Giena.getBoundingClientRect()
     let timonPosition = Timon.getBoundingClientRect()
     let caterpillar1Position = Caterpillar1.getBoundingClientRect()
     let caterpillar2Position = Caterpillar2.getBoundingClientRect()
-    if ((timonPosition.top <= caterpillar1Position.bottom || timonPosition.bottom <= caterpillar1Position.top) &&
-        (timonPosition.left >= caterpillar1Position.right || timonPosition.right >= caterpillar1Position.left))
+    let GienaPosition = Giena.getBoundingClientRect()
+
+    if (timonPosition.x + timonPosition.width >= caterpillar1Position.x &&
+        caterpillar1Position.x + caterpillar1Position.width >= timonPosition.x &&
+        timonPosition.y + timonPosition.height >= caterpillar1Position.y &&
+        caterpillar1Position.y + caterpillar1Position.height >= timonPosition.y)
     {
-        numberCaterpillars += 1
         actualHp += 6
+        numberCaterpillars += 1
         Caterpillar1.classList.remove('nothide');
         Caterpillar1.classList.add('hide');
         return false;
     }
-    if ((timonPosition.top <= caterpillar2Position.bottom || timonPosition.bottom <= caterpillar2Position.top) &&
-        (timonPosition.left >= caterpillar2Position.right || timonPosition.right >= caterpillar2Position.left)) {
+    if (timonPosition.x + timonPosition.width >= caterpillar2Position.x &&
+        caterpillar2Position.x + caterpillar2Position.width >= timonPosition.x &&
+        timonPosition.y + timonPosition.height >= caterpillar2Position.y &&
+        caterpillar2Position.y + caterpillar2Position.height >= timonPosition.y){
         actualHp += 6
         numberCaterpillars += 1
         Caterpillar2.classList.remove('nothide');
         Caterpillar2.classList.add('hide');
         return false;
     }
-    if ((timonPosition.top <= gienaPosition.bottom && timonPosition.bottom <= gienaPosition.top &&
-        timonPosition.left >= gienaPosition.right && timonPosition.right >= gienaPosition.left)) {
+
+    if (timonPosition.x + timonPosition.width >= GienaPosition.x &&
+        GienaPosition.x + GienaPosition.width >= timonPosition.x &&
+        timonPosition.y + timonPosition.height >= GienaPosition.y &&
+        GienaPosition.y + GienaPosition.height >= timonPosition.y) {
         actualHp -= 30;
-        return false;
     }
 
     return true;
