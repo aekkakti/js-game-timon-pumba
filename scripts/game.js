@@ -89,6 +89,7 @@ function updateHp() {
                 userResult = 1000 - (minutes * 60 + seconds) + numberCaterpillars * 10;
             }
             else {
+                actualHp = 0;
                 userResult = 0;
             }
         }

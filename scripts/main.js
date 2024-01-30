@@ -84,7 +84,6 @@ window.onkeyup = function (ev) {
             game.classList.add('nothide');
             startFlag = true;
             timer.begin = new Date;
-            timer.update = ms => timer.innerHTML = new Date(ms).toISOString().split(/T|\./)[1];
             timeInt = setInterval(updateTime, 1000);
             hpInt = setInterval(updateHp, 1000);
             setInterval(Collision,1000);
